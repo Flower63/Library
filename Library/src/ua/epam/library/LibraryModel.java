@@ -2,6 +2,8 @@ package ua.epam.library;
 
 import java.util.List;
 
+import ua.epam.library.entity.Book;
+
 public class LibraryModel {
 	
 	private static DBController controller;

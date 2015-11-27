@@ -6,23 +6,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+import ua.epam.library.entity.Book;
+import ua.epam.library.util.connection.MySqlConnectionManager;
 
 public class DBController {
 	
-	private Context context;
-    private DataSource datasource;
+    private MySqlConnectionManager connectionManager;
     
     public DBController(){
-    	try {
-			context = new InitialContext();
-			datasource = (DataSource) context.lookup("java:/comp/env/jdbc/library");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+		connectionManager = MySqlConnectionManager.getInstace();
     }
     
     public Student findStudentById(int id) {
@@ -31,7 +23,7 @@ public class DBController {
 
     	Student student = null;
     	
-    	try (Statement statement = datasource.getConnection().createStatement()) {
+    	try (Statement statement = connectionManager.getConnection().createStatement()) {
     		ResultSet result;
     		
     		result = statement.executeQuery(query);
@@ -66,7 +58,7 @@ public class DBController {
     public List<Book> getBooks(String query) {
     	List<Book> books = new ArrayList<>();
     	
-    	try (Statement statement = datasource.getConnection().createStatement()) {
+    	try (Statement statement = connectionManager.getConnection().createStatement()) {
     		ResultSet result = statement.executeQuery(query);
     		
     		while (result.next()) {
@@ -91,7 +83,7 @@ public class DBController {
     				+ reader.getLastName() + "', '" + reader.getPassword() + "', '" + (reader.isLabrerian() ? 1 : 0) + "', '"
     				+ reader.getLang() + "')";
     	
-    	try (Statement statement = datasource.getConnection().createStatement()) {
+    	try (Statement statement = connectionManager.getConnection().createStatement()) {
     		statement.executeUpdate(query);
     	} catch (SQLException e) {
     		e.printStackTrace();

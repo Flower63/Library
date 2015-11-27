@@ -1,4 +1,4 @@
-package ua.epam.library;
+package ua.epam.library.entity;
 
 public class Book {
 
