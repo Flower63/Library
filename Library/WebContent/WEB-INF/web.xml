@@ -16,11 +16,11 @@
     <url-pattern>/app/*</url-pattern>
   </filter-mapping>
   <servlet>
-    <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>ua.epam.library.servlets.LogoutServlet</servlet-class>
+    <servlet-name>MyLibraryController</servlet-name>
+    <servlet-class>ua.epam.library.controller.MyLibraryController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-name>MyLibraryController</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 </web-app>

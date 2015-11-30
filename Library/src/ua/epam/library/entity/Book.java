@@ -2,14 +2,18 @@ package ua.epam.library.entity;
 
 public class Book {
 
+	private int id;
 	private String name;
 	private String author;
 	private int year;
+	private int quantity;
 	
-	public Book(String name, String author, int year) {
+	public Book(int id, String name, String author, int year, int quantity) {
+		this.id = id;
 		this.name = name;
 		this.author = author;
 		this.year = year;
+		this.quantity = quantity;
 	}
 
 	public String getName() {
@@ -22,5 +26,13 @@ public class Book {
 
 	public int getYear() {
 		return year;
+	}
+	
+	public int getQuantity() {
+		return quantity;
+	}
+	
+	public int getId() {
+		return id;
 	}
 }

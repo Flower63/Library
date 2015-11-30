@@ -1,12 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ page import="ua.epam.library.*" %>
-<%@ page import="ua.epam.library.entity.*" %>
-<%@ page import="java.util.List" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Book shelf</title>
 <style>
 h1, h3, li, ol {
@@ -15,21 +10,35 @@ text-align: center;
 </style>
 </head>
 <body>
-<form action="main.jsp" method="POST">
-	<input type="submit" value="Main">
+<%@ include file="/header.jsp" %>
+<form action="MyLibraryController" method="POST">
+	<input type="hidden" name="request" value="main">
+	<button type="submit"><fmt:message key="main"/></button>
 </form>
-<h1>Library</h1>
-<h3>Search</h3>
-<%
-	List<Book> books = LibraryModel.getBooks();
+<h1><fmt:message key="library"/></h1>
+<h3><fmt:message key="search"/></h3>
 
-	out.println("<ol>");
+<form style="text-align: center" action="MyLibraryController" method="POST">
+	<input type="hidden" name="request" value="search">
+	<input type="text" name="subject" value="${sub}">
+	<button type="submit"><fmt:message key="search"/></button>
+</form>
 
-	for (Book book : books) {
-		out.println("<li>" + book.getAuthor() + " " + book.getName() + " " + book.getYear() + "</li>");
-	}
-	
-	out.println("</ol>");
-%>
+<table style="width:100%">
+	<c:forEach items="${books}" var="book">
+		<tr>
+			<td>${book.name}</td>
+			<td>${book.author}</td>
+			<td>${book.year}</td>
+			<td>${book.quantity} <fmt:message key="book.left"/></td>
+			<td>
+				<form method="POST">
+				<input type="hidden" name="request" value="order">
+				<button type="submit" name="book" value="${book.id}"><fmt:message key="book.order"/></button>
+				</form>
+			</td>
+		</tr>
+	</c:forEach>
+</table>
 </body>
 </html>

@@ -5,14 +5,14 @@ public class Reader {
 	private String lastName;
 	private String eMail;
 	private String password;
-	private Boolean isLibrerian;
+	private Boolean librerian;
 	
-	public Reader(String firstName, String lastName, String eMail, String password, Boolean isLibrerian) {
+	public Reader(String firstName, String lastName, String eMail, String password, Boolean librerian) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.eMail = eMail;
 		this.password = password;
-		this.isLibrerian = isLibrerian;
+		this.librerian = librerian;
 	}
 
 	public String getFirstName() {
@@ -31,7 +31,7 @@ public class Reader {
 		return password;
 	}
 
-	public Boolean getIsLibrerian() {
-		return isLibrerian;
+	public Boolean getLibrerian() {
+		return librerian;
 	}
 }

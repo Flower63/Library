@@ -24,9 +24,8 @@ public class LoginFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession(false);
-		//String id = (String) session.getAttribute("student_id");
 		
-		if (session != null && session.getAttribute("student") != null) {
+		if (session != null && session.getAttribute("reader") != null) {
 			chain.doFilter(request, response);
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/index.jsp");

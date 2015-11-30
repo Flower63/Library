@@ -12,6 +12,13 @@ public class ActionFactory {
 		actions = new HashMap<>();
 		
 		actions.put("book_shelf", new ActionBookShelf());
+		actions.put("login", new ActionLogin());
+		actions.put("main", new ActionMain());
+		actions.put("register", new ActionRegister());
+		actions.put("logout", new ActionLogout());
+		actions.put("my_books", new ActionMyBooks());
+		actions.put("search", new ActionSearch());
+		actions.put("order", new ActionOrder());
 	}
 	
 	public static ActionFactory getInstance() {
@@ -22,7 +29,7 @@ public class ActionFactory {
 		return instance;
 	}
 	
-	public Action getAction(String command) {
-		return actions.get(command);
+	public Action getAction(String action) {
+		return actions.get(action);
 	}
 }
