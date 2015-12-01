@@ -5,6 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import ua.epam.library.util.DAO;
 
+/**
+ * Class represents "go to book shelf" command
+ * 
+ * @author Dennis
+ *
+ */
 public class ActionBookShelf extends Action {
 
 	@Override

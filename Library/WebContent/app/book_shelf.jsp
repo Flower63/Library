@@ -13,15 +13,20 @@ text-align: center;
 <%@ include file="/header.jsp" %>
 <form action="MyLibraryController" method="POST">
 	<input type="hidden" name="request" value="main">
-	<button type="submit"><fmt:message key="main"/></button>
+	<button type="submit"><fmt:message key="menu.main"/></button>
 </form>
+
+<c:if test="${not empty error}">
+	<h3 style="text-align: center; color:red;"><fmt:message key="${error}"/></h3>
+</c:if>
+
 <h1><fmt:message key="library"/></h1>
-<h3><fmt:message key="search"/></h3>
+<h3><fmt:message key="menu.search"/></h3>
 
 <form style="text-align: center" action="MyLibraryController" method="POST">
 	<input type="hidden" name="request" value="search">
 	<input type="text" name="subject" value="${sub}">
-	<button type="submit"><fmt:message key="search"/></button>
+	<button type="submit"><fmt:message key="menu.search"/></button>
 </form>
 
 <table style="width:100%">
@@ -34,7 +39,7 @@ text-align: center;
 			<td>
 				<form method="POST">
 				<input type="hidden" name="request" value="order">
-				<button type="submit" name="book" value="${book.id}"><fmt:message key="book.order"/></button>
+				<button type="submit" name="book" value="${book.id}" ${book.quantity == 0 ? 'disabled' : ''}><fmt:message key="book.order"/></button>
 				</form>
 			</td>
 		</tr>

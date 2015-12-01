@@ -5,6 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import ua.epam.library.util.DAO;
 
+/**
+ * Class represents "go main" command
+ * 
+ * @author Dennis
+ *
+ */
 public class ActionMain extends Action {
 
 	@Override

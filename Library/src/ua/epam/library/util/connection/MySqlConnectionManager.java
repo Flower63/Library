@@ -6,12 +6,23 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+/**
+ * Implementation of connection manager to manage MySQL connections
+ * 
+ * @author Dennis
+ *
+ */
 public class MySqlConnectionManager extends ConnectionManager {
 
 	private Context context;
     private DataSource datasource;
     private static MySqlConnectionManager instance;
     
+    /**
+     * Static method to get single instance (singleton)
+     * 
+     * @return instance of manager
+     */
     public static MySqlConnectionManager getInstace() {
     	if (instance == null) {
     		instance = new MySqlConnectionManager();
@@ -20,6 +31,9 @@ public class MySqlConnectionManager extends ConnectionManager {
     	return instance;
     }
     
+    /**
+     * Constructor
+     */
     private MySqlConnectionManager() {
  
     	try {

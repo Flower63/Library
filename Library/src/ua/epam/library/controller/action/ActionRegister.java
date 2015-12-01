@@ -9,6 +9,12 @@ import javax.servlet.http.HttpSession;
 import ua.epam.library.entity.Reader;
 import ua.epam.library.util.DAO;
 
+/**
+ * Class represents "register" command
+ * 
+ * @author Dennis
+ *
+ */
 public class ActionRegister extends Action {
 
 	@Override
@@ -21,26 +27,26 @@ public class ActionRegister extends Action {
 		String password2 = request.getParameter("password2");
 		
 		if (eMail.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || password1.isEmpty() || password2.isEmpty()) {
-			request.setAttribute("error", "empty_fields");
+			request.setAttribute("error", "error.empty_fields");
 			return "register.jsp";
 		}
 		
 		Matcher matcher = MAIL_PATTERN.matcher(eMail);
 		
 		if (!matcher.matches()) {
-			request.setAttribute("error", "incorrect_email");
+			request.setAttribute("error", "error.incorrect_email");
 			return "register.jsp";
 		}
 		
 		if (!password1.equals(password2)) {
-			request.setAttribute("error", "passwords_dont_matches");
+			request.setAttribute("error", "error.passwords_dont_matches");
 			return "register.jsp";
 		}
 		
 		Reader reader = new Reader(firstName, lastName, eMail, password1, false);
 		
 		if (!dao.registerReader(reader)) {
-			request.setAttribute("error", "email_exists");
+			request.setAttribute("error", "error.email_exists");
 			return "register.jsp";
 		}
 		

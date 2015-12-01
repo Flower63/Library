@@ -8,7 +8,7 @@
 <%@ include file="/header.jsp" %>
 <form action="MyLibraryController" method="POST">
 	<input type="hidden" name="request" value="main">
-	<button type="submit"><fmt:message key="main"/></button>
+	<button type="submit"><fmt:message key="menu.main"/></button>
 </form>
 <table style="width:100%">
 	<c:forEach items="${books}" var="book">
@@ -16,9 +16,18 @@
 			<td>${book.key.name}</td>
 			<td>${book.key.author}</td>
 			<td>${book.key.year}</td>
-			<td><c:if test="${!book.value}">
-				<fmt:message key="book.not.approved"/>
-			</c:if>
+			<td>
+				<c:if test="${!book.value}">
+					<fmt:message key="book.not.approved"/>
+				</c:if>
+				<c:if test="${book.value}">
+					<form method="POST">
+						<input type="hidden" name="request" value="return">
+						<input type="hidden" name="book" value="${book.key.id}">
+						<button type="submit"><fmt:message key="book.return"/></button>
+					</form>
+				</c:if>
+			</td>
 		</tr>
 	</c:forEach>
 </table>

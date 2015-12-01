@@ -10,28 +10,28 @@
 
 <%@ include file="/header.jsp" %>
 
-${reader.firstName}
+<h3 style="text-align: center;"><fmt:message key="hello"/>, ${reader.firstName}</h3>
 
 <table>
 	<tr>
 		<td>
 			<form action="MyLibraryController" method="POST">
 				<input type="hidden" name="request" value="logout">
-				<button type="submit"><fmt:message key="logout"/></button>
+				<button type="submit"><fmt:message key="menu.logout"/></button>
 			</form>
 		</td>
 
 		<td>
 			<form action="MyLibraryController" method="POST">
 				<input type="hidden" name="request" value="my_books">
-				<button type="submit"><fmt:message key="my_books"/></button>
+				<button type="submit"><fmt:message key="menu.my_books"/></button>
 			</form>
 		</td>
 	
 		<td>
 			<form action="MyLibraryController" method="POST">
 				<input type="hidden" name="request" value="book_shelf">
-				<button type="submit"><fmt:message key="book_shelf"/></button>
+				<button type="submit"><fmt:message key="menu.book_shelf"/></button>
 			</form>
 		</td>
 
@@ -39,7 +39,7 @@ ${reader.firstName}
 			<c:if test="${ reader.librerian }">
 				<form action="MyLibraryController" method="POST">
 					<input type="hidden" name="request" value="orders">
-					<button type="submit"><fmt:message key="orders"/></button>
+					<button type="submit"><fmt:message key="menu.orders"/></button>
 				</form>
 			</c:if>
 		</td>

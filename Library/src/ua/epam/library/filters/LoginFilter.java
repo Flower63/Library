@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet Filter implementation class LoginFilter
+ * Filter to control access to /app/ folder.
+ * Filter checks, if current session contains authorized user (reader)
+ * 
+ * @author Dennis
+ *
  */
 @WebFilter("/LoginFilter")
 public class LoginFilter implements Filter {

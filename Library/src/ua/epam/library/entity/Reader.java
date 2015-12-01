@@ -1,5 +1,11 @@
 package ua.epam.library.entity;
 
+/**
+ * Entity for reader
+ * 
+ * @author Dennis
+ *
+ */
 public class Reader {
 	private String firstName;
 	private String lastName;

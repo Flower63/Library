@@ -7,6 +7,12 @@ import javax.servlet.http.HttpSession;
 import ua.epam.library.entity.Reader;
 import ua.epam.library.util.DAO;
 
+/**
+ * Class represents "order book" command
+ * 
+ * @author Dennis
+ *
+ */
 public class ActionOrder extends Action {
 
 	@Override
@@ -16,7 +22,9 @@ public class ActionOrder extends Action {
 		Reader reader = (Reader) session.getAttribute("reader");
 		
 		if (dao.checkOrderExistance(bookId, reader.geteMail())) {
-			request.setAttribute("error", "already_taken");
+			request.setAttribute("error", "error.already_taken");
+			request.setAttribute("books", dao.getBooks());
+			request.setAttribute("req", "book_shelf");
 			return "/app/book_shelf.jsp";
 		}
 		

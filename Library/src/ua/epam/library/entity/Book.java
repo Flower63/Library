@@ -1,5 +1,11 @@
 package ua.epam.library.entity;
 
+/**
+ * Entity for book
+ * 
+ * @author Dennis
+ *
+ */
 public class Book {
 
 	private int id;

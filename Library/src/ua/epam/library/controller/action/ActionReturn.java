@@ -8,17 +8,20 @@ import ua.epam.library.entity.Reader;
 import ua.epam.library.util.DAO;
 
 /**
- * Class represents "my books" command
+ * Class represents "return book" command
  * 
  * @author Dennis
  *
  */
-public class ActionMyBooks extends Action {
+public class ActionReturn extends Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response, DAO dao) {
+		int bookId = Integer.parseInt(request.getParameter("book"));
 		HttpSession session = request.getSession();
 		Reader reader = (Reader) session.getAttribute("reader");
+		
+		dao.returnBook(bookId, reader.geteMail());
 		
 		request.setAttribute("books", dao.getReaderBooks(reader.geteMail()));
 		request.setAttribute("req", "my_books");

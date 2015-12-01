@@ -5,6 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import ua.epam.library.util.DAO;
 
+/**
+ * Class represents "search books" command
+ * 
+ * @author Dennis
+ *
+ */
 public class ActionSearch extends Action {
 
 	@Override
