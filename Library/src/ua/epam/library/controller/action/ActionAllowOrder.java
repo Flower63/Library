@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ua.epam.library.entity.Order;
-import ua.epam.library.util.DAO;
+import ua.epam.library.util.dao.OrderDAO;
 
 /**
  * Class represents "allow order" command
@@ -17,16 +17,17 @@ import ua.epam.library.util.DAO;
 public class ActionAllowOrder extends Action {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response, DAO dao) {
-		int bookId = Integer.parseInt(request.getParameter("book_id"));
-		String eMail = request.getParameter("reader");
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
+		int bookId = Integer.parseInt(request.getParameter(BOOK_ID));
+		String eMail = request.getParameter(READER);
+		OrderDAO dao = FACTORY.getOrderDAO();
 		
 		dao.allowOrder(bookId, eMail);
 		
 		List<Order> orders = dao.getOrders();
 		
-		request.setAttribute("orders", orders);
-		request.setAttribute("req", "orders");
+		request.setAttribute(ORDERS, orders);
+		request.setAttribute(REQ, ORDERS);
 		
 		return "/app/orders.jsp";
 	}

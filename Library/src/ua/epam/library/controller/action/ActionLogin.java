@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import ua.epam.library.entity.Reader;
-import ua.epam.library.util.DAO;
 
 /**
  * Class represents "login" command
@@ -18,31 +17,31 @@ import ua.epam.library.util.DAO;
 public class ActionLogin extends Action {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response, DAO dao) {
-		String eMail = request.getParameter("email");
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
+		String eMail = request.getParameter(EMAIL);
 		Matcher matcher = MAIL_PATTERN.matcher(eMail);
 		
 		if (!matcher.matches()) {
-			request.setAttribute("error", "error.incorrect_email");
+			request.setAttribute(ERROR, "error.incorrect_email");
 			return "login.jsp";
 		}
 		
-		Reader reader = dao.getReader(eMail);
+		Reader reader = FACTORY.getReaderDAO().getReader(eMail);
 		
 		if (reader == null) {
-			request.setAttribute("error", "error.user_not_found");
+			request.setAttribute(ERROR, "error.user_not_found");
 			return "login.jsp";
 		}
 		
-		String password = request.getParameter("password");
+		String password = request.getParameter(PASSWORD);
 		
 		if (!reader.getPassword().equals(password)) {
-			request.setAttribute("error", "error.incorrect_password");
+			request.setAttribute(ERROR, "error.incorrect_password");
 			return "login.jsp";
 		}
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("reader", reader);
+		session.setAttribute(READER, reader);
 		session.setMaxInactiveInterval(60*60*3);
 		
 		return "app/main.jsp";

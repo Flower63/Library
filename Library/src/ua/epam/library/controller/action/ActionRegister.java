@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import ua.epam.library.entity.Reader;
-import ua.epam.library.util.DAO;
 
 /**
  * Class represents "register" command
@@ -18,40 +17,40 @@ import ua.epam.library.util.DAO;
 public class ActionRegister extends Action {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response, DAO dao) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		String eMail = request.getParameter("email");
-		String firstName = request.getParameter("first_name");
-		String lastName = request.getParameter("last_name");
-		String password1 = request.getParameter("password1");
-		String password2 = request.getParameter("password2");
+		String eMail = request.getParameter(EMAIL);
+		String firstName = request.getParameter(FIRST_NAME);
+		String lastName = request.getParameter(LAST_NAME);
+		String password1 = request.getParameter(PASSWORD + "1");
+		String password2 = request.getParameter(PASSWORD + "2");
 		
 		if (eMail.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || password1.isEmpty() || password2.isEmpty()) {
-			request.setAttribute("error", "error.empty_fields");
+			request.setAttribute(ERROR, "error.empty_fields");
 			return "register.jsp";
 		}
 		
 		Matcher matcher = MAIL_PATTERN.matcher(eMail);
 		
 		if (!matcher.matches()) {
-			request.setAttribute("error", "error.incorrect_email");
+			request.setAttribute(ERROR, "error.incorrect_email");
 			return "register.jsp";
 		}
 		
 		if (!password1.equals(password2)) {
-			request.setAttribute("error", "error.passwords_dont_matches");
+			request.setAttribute(ERROR, "error.passwords_dont_matches");
 			return "register.jsp";
 		}
 		
 		Reader reader = new Reader(firstName, lastName, eMail, password1, false);
 		
-		if (!dao.registerReader(reader)) {
-			request.setAttribute("error", "error.email_exists");
+		if (!FACTORY.getReaderDAO().registerReader(reader)) {
+			request.setAttribute(ERROR, "error.email_exists");
 			return "register.jsp";
 		}
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("reader", reader);
+		session.setAttribute(READER, reader);
 		session.setMaxInactiveInterval(60*60*3);
 		
 		return "app/main.jsp";

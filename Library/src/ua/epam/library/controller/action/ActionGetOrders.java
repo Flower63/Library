@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ua.epam.library.entity.Order;
-import ua.epam.library.util.DAO;
 
 /**
  * Class represents "get orders" command
@@ -17,12 +16,12 @@ import ua.epam.library.util.DAO;
 public class ActionGetOrders extends Action {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response, DAO dao) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		List<Order> orders = dao.getOrders();
+		List<Order> orders = FACTORY.getOrderDAO().getOrders();
 		
-		request.setAttribute("orders", orders);
-		request.setAttribute("req", "orders");
+		request.setAttribute(ORDERS, orders);
+		request.setAttribute(REQ, ORDERS);
 		
 		return "/app/orders.jsp";
 	}

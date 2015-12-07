@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ua.epam.library.controller.action.ActionFactory;
-import ua.epam.library.util.DAO;
-import ua.epam.library.util.DAOFactory;
-import ua.epam.library.util.DAOFactory.DAOType;
 
 /**
  * Controller servlet to library
@@ -23,11 +20,17 @@ import ua.epam.library.util.DAOFactory.DAOType;
 @WebServlet("/MyLibraryController")
 @SuppressWarnings("serial")
 public class MyLibraryController extends HttpServlet {
-       
+	
 	/**
-	 * Instance of DAO
+	 * Encoding
 	 */
-	private DAO dao;
+	private final static String ENCODING = "UTF-8";
+	
+	/**
+	 * HTTP request parameters
+	 */
+	private final static String REQUEST = "request";
+	private final static String FROM = "from";
 	
 	/**
 	 * Factory for actions (pattern command)
@@ -38,7 +41,6 @@ public class MyLibraryController extends HttpServlet {
 	 * Constructor, initializes fields
 	 */
     public MyLibraryController() {
-    	dao = DAOFactory.getDao(DAOType.MYSQL);
         factory = ActionFactory.getInstance();
     }
 
@@ -50,14 +52,14 @@ public class MyLibraryController extends HttpServlet {
 		/*
 		 * Setting encoding
 		 */
-		request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding(ENCODING);
 
 		/*
 		 * Checking, if "request" parameter is empty. If so, forwards request by "from" parameter.
 		 * It needs to be able change language anywhere in app.
 		 */
-		if (request.getParameter("request") == null) {
-			String from = request.getParameter("from");
+		if (request.getParameter(REQUEST) == null) {
+			String from = request.getParameter(FROM);
 			request.getRequestDispatcher(from.substring(from.indexOf('/', 1))).forward(request, response);
 			return;
 		}
@@ -65,7 +67,7 @@ public class MyLibraryController extends HttpServlet {
 		/*
 		 * Getting path by executing Action object, which is chosen due to "request" parameter
 		 */
-		String path = factory.getAction(request.getParameter("request")).execute(request, response, dao);
+		String path = factory.getAction(request.getParameter(REQUEST)).execute(request, response);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		
 		/*

@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import ua.epam.library.entity.Reader;
-import ua.epam.library.util.DAO;
 
 /**
  * Class represents "order book" command
@@ -16,20 +15,22 @@ import ua.epam.library.util.DAO;
 public class ActionOrder extends Action {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response, DAO dao) {
-		int bookId = Integer.parseInt(request.getParameter("book"));
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
+		int bookId = Integer.parseInt(request.getParameter(BOOK));
 		HttpSession session = request.getSession();
-		Reader reader = (Reader) session.getAttribute("reader");
+		Reader reader = (Reader) session.getAttribute(READER);
 		
-		if (dao.checkOrderExistance(bookId, reader.geteMail())) {
-			request.setAttribute("error", "error.already_taken");
-			request.setAttribute("books", dao.getBooks());
-			request.setAttribute("req", "book_shelf");
+		if (FACTORY.getOrderDAO().checkOrderExistance(bookId, reader.geteMail())) {
+			request.setAttribute(ERROR, "error.already_taken");
+			request.setAttribute(BOOKS, FACTORY.getBookDAO().getBooks());
+			request.setAttribute(REQ, "book_shelf");
 			return "/app/book_shelf.jsp";
 		}
 		
-		request.setAttribute("books", dao.orderBook(bookId, reader));
-		request.setAttribute("req", "my_books");
+		FACTORY.getOrderDAO().orderBook(bookId, reader);
+		
+		request.setAttribute(BOOKS, FACTORY.getBookDAO().getReaderBooks(reader.geteMail()));
+		request.setAttribute(REQ, "my_books");
 		
 		return "/app/my_books.jsp";
 	}

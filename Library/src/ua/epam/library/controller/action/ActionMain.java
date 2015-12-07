@@ -3,8 +3,6 @@ package ua.epam.library.controller.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.epam.library.util.DAO;
-
 /**
  * Class represents "go main" command
  * 
@@ -14,7 +12,7 @@ import ua.epam.library.util.DAO;
 public class ActionMain extends Action {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response, DAO dao) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		return "app/main.jsp";
 	}
 

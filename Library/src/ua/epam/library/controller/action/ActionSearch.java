@@ -3,8 +3,6 @@ package ua.epam.library.controller.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.epam.library.util.DAO;
-
 /**
  * Class represents "search books" command
  * 
@@ -14,12 +12,12 @@ import ua.epam.library.util.DAO;
 public class ActionSearch extends Action {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response, DAO dao) {
-		String subject = request.getParameter("subject");
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
+		String subject = request.getParameter(SUBJECT);
 		
-		request.setAttribute("books", dao.searchBooks(subject));
-		request.setAttribute("req", "book_shelf");
-		request.setAttribute("sub", subject);
+		request.setAttribute(BOOKS, FACTORY.getBookDAO().searchBooks(subject));
+		request.setAttribute(REQ, "book_shelf");
+		request.setAttribute(SUB, subject);
 		
 		return "/app/book_shelf.jsp";
 	}

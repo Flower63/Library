@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ua.epam.library.entity.Order;
-import ua.epam.library.util.DAO;
 
 /**
  * Class represents "deny order" command
@@ -17,16 +16,17 @@ import ua.epam.library.util.DAO;
 public class ActionDenyOrder extends Action {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response, DAO dao) {
-		int bookId = Integer.parseInt(request.getParameter("book_id"));
-		String eMail = request.getParameter("reader");
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		dao.returnBook(bookId, eMail);
+		int bookId = Integer.parseInt(request.getParameter(BOOK_ID));
+		String eMail = request.getParameter(READER);
 		
-		List<Order> orders = dao.getOrders();
+		FACTORY.getBookDAO().returnBook(bookId, eMail);
 		
-		request.setAttribute("orders", orders);
-		request.setAttribute("req", "orders");
+		List<Order> orders = FACTORY.getOrderDAO().getOrders();
+		
+		request.setAttribute(ORDERS, orders);
+		request.setAttribute(REQ, ORDERS);
 		
 		return "/app/orders.jsp";
 	}
